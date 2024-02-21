@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${bookStore.name}">Bookstore Name</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 800px;
+      margin: auto;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+      background-color: #f4f4f4;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+      transition: color 0.3s;
+    }
+    a:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+<h1 th:text="${bookStore.name}">Bookstore Name</h1>
+<h2>Books in this Bookstore:</h2>
+<ul>
+  <li th:each="book : ${books}" th:text="${book.title}">Book Title</li>
+</ul>
+<a href="/bookstores">Back to Bookstores</a>
+</body>
+</html>

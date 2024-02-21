@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Book with Highest Average Score</title>
+</head>
+<body>
+<header>
+  <h1>Book with the Highest Average Score</h1>
+</header>
+<main>
+  <div th:if="${book != null}">
+    <h2 th:text="${book.title}">Book Title</h2>
+    <p><b>Genre:</b> <span th:text="${book.genre}">Genre</span></p>
+    <p><b>Year:</b> <span th:text="${book.year}">Year</span></p>
+    <p><b>Average Score:</b> <span th:text="${book.averageScore}">Average Score</span></p>
+  </div>
+  <div th:if="${book == null}">
+    <p>No book found with the highest average score.</p>
+  </div>
+  <a href="/listbooks" class="button-link">Back to Book List</a>
+</main>
+</body>
+</html>

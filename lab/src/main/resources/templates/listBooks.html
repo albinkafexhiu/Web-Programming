@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books Homepage - Welcome to My Book Store</title>
+    <style type="text/css">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        header h1 {
+            text-align: center;
+            color: #333366;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f7f7f7;
+            color: #333366;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .search-box {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .search-box input[type="text"] {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .button-link {
+            background-color: #5C6BC0;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .button-link:hover {
+            background-color: #3f51b5;
+        }
+        .action-buttons a {
+            color: #5C6BC0;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+        .action-buttons a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to My Book Store</h1>
+</header>
+<main>
+    <div class="search-box">
+        <form th:action="@{/listbooks}" method="get">
+            <input type="text" name="searchQuery" placeholder="Search books...">
+            <button type="submit" class="button-link">Search</button>
+        </form>
+    </div>
+
+    <div th:if="${error}" th:text="${error}"></div>
+
+    <table>
+        <tr>
+            <th>Select</th>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="book : ${books}">
+            <td><input type="radio" th:name="bookIsbn" th:value="${book.isbn}" /></td>
+            <td th:text="${book.title}">Book Title</td>
+            <td th:text="${book.genre}">Genre</td>
+            <td th:text="${book.year}">Year</td>
+            <td th:text="${book.averageScore}">Average Score</td>
+            <td class="action-buttons">
+                <a th:href="@{/books/edit-form/{id}(id=${book.id})}">Edit</a> |
+                <a th:href="@{/books/delete/{id}(id=${book.id})}" onclick="return confirm('Are you sure?')">Delete</a> |
+                <a th:href="@{/books/{id}/reviews(id=${book.id})}">View Reviews</a>
+            </td>
+        </tr>
+    </table>
+
+    <a th:href="@{/books/add-form}" class="button-link">Add New Book</a>
+    <a th:href="@{/bookstores}" class="button-link">View Bookstores</a>
+    <a th:href="@{/books/highest-average-score}" class="button-link">Book with Highest Average Score</a>
+</main>
+</body>
+</html>
